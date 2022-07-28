@@ -15,7 +15,7 @@ export const getEnvVar = (input: string) => {
 const getKeys = async (): Promise<string[]> => {
     const location = "stockholm";
     const listParam = {
-        Bucket: getEnvVar("WEATHER_BUCKET_NAME"),
+        Bucket: getEnvVar("RESOURCE_BUCKET_NAME"),
         Prefix: `data/${location}/`
     }
     const objectList = await s3.listObjectsV2(listParam).promise();
@@ -29,7 +29,7 @@ const getKeys = async (): Promise<string[]> => {
 const getWeatherData = async (keys: string[]): Promise<(string | undefined)[]> => {
     const promiseList = keys.map((key) => {
         const param = {
-            Bucket: getEnvVar("WEATHER_BUCKET_NAME"),
+            Bucket: getEnvVar("RESOURCE_BUCKET_NAME"),
             Key: key,
         }
         return s3.getObject(param).promise();

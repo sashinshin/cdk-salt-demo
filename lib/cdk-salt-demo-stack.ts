@@ -3,7 +3,7 @@ import { Construct } from 'constructs';
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 import { addResourceBucket, addStaticPageBucket } from './s3-resources';
 import { RestApi, LambdaIntegration } from 'aws-cdk-lib/aws-apigateway';
-import { addAccessResourceLambda } from './lambda-resources';
+import { addAccessResourcesLambda } from './lambda-resources';
 
 
 export class CdkSaltDemoStack extends cdk.Stack {
@@ -24,7 +24,7 @@ export class CdkSaltDemoStack extends cdk.Stack {
     const resourceBucket = addResourceBucket(this);
     addStaticPageBucket(this);
 
-    const accessResourceLambda = addAccessResourceLambda(this, resourceBucket);
+    const accessResourceLambda = addAccessResourcesLambda(this, resourceBucket);
 
     const api = new RestApi(this, "salt-api");
     api.root
