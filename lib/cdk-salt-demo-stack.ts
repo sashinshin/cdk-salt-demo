@@ -10,15 +10,17 @@ export class CdkSaltDemoStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-      new CodePipeline(this, 'Pipeline', {
+    new CodePipeline(this, 'Pipeline', {
       pipelineName: 'TestPipeline',
+      dockerEnabledForSynth: true,
+      selfMutation: true,
+      dockerEnabledForSelfMutation: true,
       synth: new ShellStep('Synth', {
         input: CodePipelineSource.gitHub('sashinshin/cdk-salt-demo', 'main'),
         commands: ['npm ci',
-        'npm run build',
-        'npx cdk synth'],
+          'npm run build',
+          'npx cdk synth'],
       }),
-      dockerEnabledForSynth: true,
     });
 
 
