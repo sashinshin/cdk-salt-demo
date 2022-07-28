@@ -13,15 +13,19 @@ export const getEnvVar = (input: string) => {
 
 
 const getImage = async () => {
+    console.log("in get image");
+    
     const param = {
         Bucket: getEnvVar("RESOURCE_BUCKET_NAME"),
         Key: "salt.png",
-    }
+    });
     return s3.getObject(param).promise();
 }
 
 export const handler = async (): Promise<object> => {
     const image = await getImage();
+    console.log(image);
+    
     const response = {
         statusCode: 200,
         body: JSON.stringify(image),
