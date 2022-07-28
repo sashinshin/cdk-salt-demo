@@ -20,16 +20,16 @@ export class CdkSaltDemoStack extends cdk.Stack {
       }),
     });
 
-    const bucket = new s3.Bucket(this, 'cdk-salt-demo-bucket', {
-      bucketName: "cdk-salt-demo-static-site",
-      publicReadAccess: true,
-      websiteIndexDocument: "index.html",
-    });
+    // const bucket = new s3.Bucket(this, 'cdk-salt-demo-bucket', {
+    //   bucketName: "cdk-salt-demo-static-site",
+    //   publicReadAccess: true,
+    //   websiteIndexDocument: "index.html",
+    // });
     
-    new s3Deploy.BucketDeployment(this, "BucketDeploy", {
-      sources: [s3Deploy.Source.asset(join(__dirname, "../dist"))],
-      destinationBucket: bucket,
-    })
+    // new s3Deploy.BucketDeployment(this, "BucketDeploy", {
+    //   sources: [s3Deploy.Source.asset(join(__dirname, "../dist"))],
+    //   destinationBucket: bucket,
+    // })
 
   }
 }
