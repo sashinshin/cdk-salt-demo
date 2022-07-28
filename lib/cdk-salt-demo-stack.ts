@@ -1,9 +1,9 @@
 import * as cdk from 'aws-cdk-lib';
-import * as s3 from "aws-cdk-lib/aws-s3";
-import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment"
 import { Construct } from 'constructs';
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
-import { join } from 'path';
+import { addResourceBucket, addStaticPageBucket } from './s3-resources';
+import { RestApi, LambdaIntegration } from 'aws-cdk-lib/aws-apigateway';
+import { addAccessResourceLambda } from './lambda-resources';
 
 
 export class CdkSaltDemoStack extends cdk.Stack {
@@ -20,16 +20,18 @@ export class CdkSaltDemoStack extends cdk.Stack {
       }),
     });
 
-    // const bucket = new s3.Bucket(this, 'cdk-salt-demo-bucket', {
-    //   bucketName: "cdk-salt-demo-static-site",
-    //   publicReadAccess: true,
-    //   websiteIndexDocument: "index.html",
-    // });
-    
-    // new s3Deploy.BucketDeployment(this, "BucketDeploy", {
-    //   sources: [s3Deploy.Source.asset(join(__dirname, "../dist"))],
-    //   destinationBucket: bucket,
-    // })
+
+    const resourceBucket = addResourceBucket(this);
+    addStaticPageBucket(this);
+
+    const accessResourceLambda = addAccessResourceLambda(this, resourceBucket);
+
+    const api = new RestApi(this, "salt-api");
+    api.root
+      .resourceForPath("resource")
+      .addMethod("GET", new LambdaIntegration(accessResourceLambda))
+
+
 
   }
 }
