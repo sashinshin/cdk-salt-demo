@@ -18,6 +18,7 @@ export class CdkSaltDemoStack extends cdk.Stack {
           'npm run build',
           'npx cdk synth'],
       }),
+      dockerEnabledForSynth: true,
     });
 
 
