@@ -34,7 +34,5 @@ export class CdkSaltDemoStack extends cdk.Stack {
       .resourceForPath("resource")
       .addMethod("GET", new LambdaIntegration(accessResourceLambda))
 
-
-
   }
 }
