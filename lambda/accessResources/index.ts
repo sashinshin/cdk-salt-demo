@@ -18,7 +18,7 @@ const getImage = async () => {
     const param = {
         Bucket: getEnvVar("RESOURCE_BUCKET_NAME"),
         Key: "salt.png",
-    });
+    };
     return s3.getObject(param).promise();
 }
 
