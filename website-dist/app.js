@@ -16,6 +16,6 @@ button.addEventListener("click", async () => {
     //     dataContainer.appendChild(day)
     // });
 
-    // button.remove();
+    button.remove();
 });
 
