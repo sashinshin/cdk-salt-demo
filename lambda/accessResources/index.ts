@@ -10,7 +10,6 @@ export const getEnvVar = (input: string) => {
     throw new Error(`process.env.${input} was not set`)
 }
 
-
 const getData = async () => {
     const param = {
         Bucket: getEnvVar("RESOURCE_BUCKET_NAME"),

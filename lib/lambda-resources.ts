@@ -12,9 +12,11 @@ export const addAccessResourcesLambda = (stack: Construct, resourceBucket: cdk.a
         entry: join(__dirname, "../lambda/accessResources/index.ts"),
         runtime: Runtime.NODEJS_14_X,
         timeout: cdk.Duration.seconds(30),
+        // Environment variables that will be accessable in the lambda enivronment
         environment: {
             RESOURCE_BUCKET_NAME: resourceBucket.bucketName,
         },
+        // Initial policy defines IAM permissions
         initialPolicy: [
             new PolicyStatement({
                 effect: Effect.ALLOW,

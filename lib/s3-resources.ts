@@ -5,7 +5,7 @@ import { join } from 'path';
 
 export const addResourceBucket = (stack: Construct): s3.Bucket => {
     const resourcesS3 = new s3.Bucket(stack, 'ResourceS3', {
-        bucketName: "resource-s3-salt-demo-sdk",
+        bucketName: "resource-s3-salt-demo-sdk", // All bucket names are unique
     })
 
     new s3Deploy.BucketDeployment(stack, "ResourceS3Deploy", {

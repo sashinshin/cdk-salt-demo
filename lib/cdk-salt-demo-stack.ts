@@ -10,13 +10,14 @@ export class CdkSaltDemoStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    // dockerEnabledForSynth is neccessary when deploying lambda functions, and needs to be enabled before the lambda resources are deployed
     new CodePipeline(this, 'Pipeline', {
       pipelineName: 'TestPipeline',
       dockerEnabledForSynth: true,
       selfMutation: true,
       dockerEnabledForSelfMutation: true,
       synth: new ShellStep('Synth', {
-        input: CodePipelineSource.gitHub('sashinshin/cdk-salt-demo', 'main'),
+        input: CodePipelineSource.gitHub('sashinshin/cdk-salt-demo', 'main'), // Remember to change the name of this
         commands: ['npm ci',
           'npm run build',
           'npx cdk synth'],
