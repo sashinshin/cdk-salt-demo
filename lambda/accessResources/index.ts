@@ -16,7 +16,9 @@ const getData = async () => {
         Bucket: getEnvVar("RESOURCE_BUCKET_NAME"),
         Key: "test-data.json",
     };
-    return s3.getObject(param).promise();
+    const res = await s3.getObject(param).promise();
+    const data = res.Body?.toString('utf-8');
+    return data;
 }
 
 export const handler = async (): Promise<object> => {
