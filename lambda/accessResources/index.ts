@@ -23,6 +23,9 @@ const getData = async () => {
 export const handler = async (): Promise<object> => {
     const data = await getData();
 
+    console.log("Should show up in CloudWatch");
+    
+
     const response = {
         statusCode: 200,
         body: JSON.stringify(data),
