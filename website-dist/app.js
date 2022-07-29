@@ -1,20 +1,14 @@
 const button = document.getElementById("button");
 
 button.addEventListener("click", async () => {
-    console.log("hello")
-    // const endpoint = "https://2oxnxxfh16.execute-api.eu-west-1.amazonaws.com/prod/weather"
-    // const res = await fetch(endpoint).then(res => res.json()).then(data => data);
+    const endpoint = "https://9zw02nbeb0.execute-api.eu-west-1.amazonaws.com/prod/resource"
+    const res = await fetch(endpoint).then(res => res.json()).then(data => data);
+    const parsed = await JSON.parse(res)
 
-    // const list = await res.map(t => JSON.parse(t))
-    // console.log(list);
 
-    // const dataContainer = document.getElementById("data-container");
-    // list.forEach(element => {
-    //     const day = document.createElement("li")
-    //     const node = document.createTextNode(`${element.date}: ${element.description} It was ${element.temp}, and felt like ${element.feelslike}`);
-    //     day.appendChild(node)
-    //     dataContainer.appendChild(day)
-    // });
+    const dataContainer = document.getElementById("data-container");
+    const node = document.createTextNode(`Data fetched contained: ${parsed.hello}`);
+    dataContainer.append(node)
 
     button.remove();
 });

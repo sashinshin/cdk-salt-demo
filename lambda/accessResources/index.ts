@@ -2,7 +2,6 @@ import { S3 } from "aws-sdk";
 
 const s3 = new S3();
 
-
 export const getEnvVar = (input: string) => {
     const value = process.env[input];
     if (typeof value === "string") {
@@ -12,25 +11,21 @@ export const getEnvVar = (input: string) => {
 }
 
 
-const getImage = async () => {
-    console.log("in get image");
-    
+const getData = async () => {
     const param = {
         Bucket: getEnvVar("RESOURCE_BUCKET_NAME"),
-        Key: "salt.png",
+        Key: "test-data.json",
     };
     return s3.getObject(param).promise();
 }
 
 export const handler = async (): Promise<object> => {
-    const image = await getImage();
-    console.log(image);
-    
+    const data = await getData();
+
     const response = {
         statusCode: 200,
-        body: JSON.stringify(image),
-        isBase64Encoded: true,
-        "Content-Type": "image/png",
+        body: JSON.stringify(data),
+        isBase64Encoded: false,
         headers: {
             'Access-Control-Allow-Method': "GET",
             'Access-Control-Allow-Origin': "*"
